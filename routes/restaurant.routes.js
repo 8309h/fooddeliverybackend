@@ -10,29 +10,29 @@ const RestaurantRouter = express.Router()
 RestaurantRouter.post('/api/restro-add', async (req, res) => {
     const { name, address, menu } = req.body;
     try {
-      const ifRestroPresent = await RestaurantModel.findOne({ name }); 
-  
-      if (ifRestroPresent) {
-        res.send("Already present");
-        return;
-      }
-  
-      const data = {
-        name,
-        address,
-        menu,
-      };
-  
-      const post = new RestaurantModel(data);
-      await post.save();
-      res.send({ msg: "Restro Add successfully" }); 
-  
+        const ifRestroPresent = await RestaurantModel.findOne({ name });
+
+        if (ifRestroPresent) {
+            res.send("Already present");
+            return;
+        }
+
+        const data = {
+            name,
+            address,
+            menu,
+        };
+
+        const post = new RestaurantModel(data);
+        await post.save();
+        res.send({ msg: "Restro Add successfully" });
+
     } catch (err) {
-      res.status(500).send({ msg: "Cannot add restaurant", error: err.message }); 
-      console.log(err);
+        res.status(500).send({ msg: "Cannot add restaurant", error: err.message });
+        console.log(err);
     }
-  });
-  
+});
+
 // geting restaurant
 RestaurantRouter.get('/api/restaurants', async (req, res) => {
     try {
